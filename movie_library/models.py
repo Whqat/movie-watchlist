@@ -24,7 +24,7 @@ class User(db.Model):
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     email = db.Column(db.String(), nullable=False)
     password_hash = db.Column(db.String(length=32), nullable=False)
-    movies = db.relation("Movie", backref='owned_user', lazy=True)
+    movies = db.relationship("Movie", backref='owned_user', lazy=True)
 
     @property                           #PASSWORD HASHING
     def password(self):
