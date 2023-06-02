@@ -5,6 +5,5 @@ flask-wtf
 email_validator
 flask-bcrypt
 datetime
-functools
 dotenv
 gunicorn
