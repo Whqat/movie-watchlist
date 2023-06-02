@@ -1,5 +1,5 @@
 flask
-flask_sqlalchmey
+flask_sqlalchemy
 python-dotenv
 flask-wtf
 email_validator
