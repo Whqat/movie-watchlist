@@ -40,7 +40,13 @@
   
   html {
     /* Sets global font size on small devices */
-    font-size: 12px;
+    font-size: 9px;
+  }
+
+  @media screen and (min-width: 25em) {
+    html {
+      font-size: 11px;
+    }
   }
   
   /* When the screen width hits 960px, we increase the global font size to 14px. This changes
