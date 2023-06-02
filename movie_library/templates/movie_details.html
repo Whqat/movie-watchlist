@@ -1,0 +1,75 @@
+{% from "macros/svgs.html" import star, pencil %}
+
+{% extends 'layout.html' %}
+
+{%- block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/movie_details.css') }}" />
+{% endblock %}
+
+{% block main_content %}
+<div class="container">
+    <header class="movie__header">
+        <div class="header__row">
+            <div class="movie__name">
+                <h1>{{ movie.title }}</h1>
+                <div class="movie__rating">
+                    {% for i in range(5) %}
+                        <a class="rating__link" href="{{ url_for('rate_movie', _id=movie.id, rating=i+1) }}">
+                            {{ star('star ' + ('star--filled' if movie.rating > i else "")) }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="movie__watched">
+                {% if movie.last_watched %}
+                    <p>
+                        Last watched: <a href="{{ url_for('watch_today', _id=movie.id) }}" class="watched__link">
+                            <time datetime="{{ movie.last_watched }}">{{ movie.last_watched }}</time>
+                        </a>
+                    </p>
+                {% else %}
+                    <p><a href="{{ url_for('watch_today', _id=movie.id) }}" class="watched__link">Not Watched yet</a></p>
+                {% endif %}
+                <a href="{{ url_for('edit_movie', _id=movie.id) }}" class="movie__edit" >Edit movie {{ pencil("pencil") }}</a>
+            </div>
+        </div>
+        <div class="header__row">
+            <ul class="movie__tags">
+                {% if movie.tags %}
+                    {% for tag in movie.tags.split(" ") %}
+                        <li class="movie__tag">{{ tag }}</li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </header>
+
+    {% if movie.video_link %}
+    <iframe
+    class="movie__video"
+    src="{{ movie.video_link }}"
+    title="Youtube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+    </iframe>
+    {% endif %}
+
+    {% if movie.description %}
+        <p class="movie__description">{{ movie.description }}</p>
+    {% else %}
+        <p class="movie__description">No description yet. <a class="link" href="{{ url_for('edit_movie', _id = movie.id) }}">Add one?</a></p>
+    {% endif %}
+    <div class="movie__meta">
+        {% if movie.favourite_actor %}
+            <div class="movie_casting">
+                <h2>Favourite Actor</h2>
+                <ul class="list">
+                    <li class="list__item">{{ movie.favourite_actor }}</li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

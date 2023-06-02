@@ -1,0 +1,10 @@
+flask
+flask_sqlalchmey
+python-dotenv
+flask-wtf
+email_validator
+flask-bcrypt
+datetime
+functools
+dotenv
+gunicorn
